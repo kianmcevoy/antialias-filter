@@ -1,0 +1,66 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+test/bin
+bin/demo
+
+# MacOS
+.DS_Store
+
+# CMake
+*.cmake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+*/Makefile
+install_manifest.txt
+compile_commands.json
+build/
+piBuild/
+bin/
+
+# Dependencies
+_deps
+
+# Vagrant machine
+.vagrant/
+
+# VS Code
+settings.json
+.vscode/
+
+!test/bin/test_config.hjson
+
+toolchain/aarch64-buildroot-linux-uclibc_sdk-buildroot
