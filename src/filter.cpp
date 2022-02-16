@@ -192,7 +192,7 @@ void Biquad::process(vector<float>& inOutBuff)
     for(int i = 0; i < inOutBuff.size(); i++)
     {
         //feedback coefficients
-        xState[0] = inOutBuff[i]; + (xState[1] * -aCoef[1]) + (xState[2] * -aCoef[2]);
+        xState[0] = inOutBuff[i] + (xState[1] * -aCoef[1]) + (xState[2] * -aCoef[2]);
         //feedfoward coefficients
         inOutBuff[i] = (xState[0] * bCoef[0]) + (xState[1] * bCoef[1]) + (xState[2] * bCoef[2]);
         //shift delay blocks
