@@ -1,44 +1,20 @@
-//filter.cpp
+//biquad.cpp
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "filter.h"
-
+#include "biquad.h"
 using namespace std;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-OnePole::OnePole()
-{
-	coef = 0;
-	xState = 0;
-	yState = 0;
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void OnePole::process(vector<float>& x)
-{
-    lowPassArray.resize(x.size());
-    hiPassArray.resize(x.size());
-   
-    for(int i=0; i < x.size(); i++)
-    {
-        float y = (x[i] + xState - yState * (1-coef)) / (1+coef);
-        xState = x[i];
-        yState = y;
-
-        lowPassArray[i] = yState;
-        hiPassArray[i] = xState - yState;
-    }
-}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Biquad::Biquad()
 {
 	level = 1;
-    aCoef.resize(ORDER);
-    bCoef.resize(ORDER);
-    xState.resize(ORDER);
+    aCoef.resize(3);
+    bCoef.resize(3);
+    xState.resize(3);
     type = LOWPASS_1POLE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Biquad::initFilter(float cutOff, float resonance)
+void Biquad::initFilter(float freq, float resonance)
 {
-    float f = cutOff/sampleRate;
+    float f = freq;
     float K = tanf(M_PI * f); 
     float Q = resonance;
     float V = level;

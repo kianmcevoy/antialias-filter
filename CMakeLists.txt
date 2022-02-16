@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(testFilter)
-add_executable(antiAlias src/test.cpp src/filter.cpp)
+project(antiAlias)
+add_executable(antiAlias src/test.cpp src/antiAlias.cpp src/biquad.cpp)
 include_directories(include lib) 
 set_target_properties(antiAlias PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/)
