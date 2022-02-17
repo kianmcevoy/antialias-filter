@@ -24,6 +24,7 @@ class Biquad
         };
         inline void setlevel(float f)                           {level = f;}
         inline void setType(Type t)                             {type = t;}
+        void initFilter(float freq);
         void initFilter(float freq, float resonance);
         void process(std::vector<float>& inOutBuff);   
         void process(const std::vector<float>& inBuff, std::vector<float>& outBuff);   

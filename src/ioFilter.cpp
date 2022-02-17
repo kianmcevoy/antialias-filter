@@ -1,8 +1,8 @@
-//antiAlias.cpp
+//ioFilter.cpp
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "../include/antiAlias.h"
+#include "ioFilter.h"
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-AntiAlias::AntiAlias()
+IoFilter::IoFilter()
 {
     for(auto& f : filters)
     {
@@ -10,15 +10,15 @@ AntiAlias::AntiAlias()
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void AntiAlias::setCutoff(float cutOff)
+void IoFilter::init(int sampleRate)
 {
-    for(auto& f : filters)
-    {
-        f.initFilter(cutOff, 0.2);
-    }
+    filters[0].initFilter((float)13000.f/sampleRate);
+    filters[1].initFilter((float)12000.f/sampleRate);
+    filters[2].initFilter((float)11000.f/sampleRate);
+    filters[3].initFilter((float)9000.f/sampleRate);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void AntiAlias::process(std::vector<float>& inOutBuff)
+void IoFilter::process(std::vector<float>& inOutBuff)
 {
     for(auto& f : filters)
     {

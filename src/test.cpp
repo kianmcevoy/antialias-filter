@@ -1,20 +1,16 @@
 #include <iostream>
 #include <string>
 #include "AudioFile.h"
-#include "../include/antiAlias.h"
-
+#include "ioFilter.h"
 
 void loadAudio(AudioFile<float> &inputFile, std::string &pathToFile)
 {
     inputFile.load(pathToFile);
-
     std::cout << "Sample Rate = " << inputFile.getSampleRate() << '\n';
     std::cout << "Bit Depth = " << inputFile.getBitDepth() << '\n';
     std::cout << "Number of Samples = " << inputFile.getNumSamplesPerChannel() << '\n';
     std::cout << "Length in Seconds = " << inputFile.getLengthInSeconds() << '\n';
     std::cout << "Number of Channels = " << inputFile.getNumChannels() << '\n';
-    //std::cout << "Mono? = " << inputFile.isMono() << '\n';
-    //std::cout << "Stereo? = " << inputFile.isStereo() << '\n';
 }
 
 int main()
@@ -23,11 +19,11 @@ int main()
     AudioFile<float> outputFile;
     AudioFile<float>::AudioBuffer buffer;
 
-    AntiAlias antiAlias;
+    IoFilter ioFilter;
 
     int sr = inputFile.getSampleRate();
 
-    std::string pathToFile = "/home/kian/instruo/newLubadh/antiAlias/audio/input.wav";
+    std::string pathToFile = "/home/kian/instruo/newLubadh/ioFilter/audio/input.wav";
     loadAudio(inputFile, pathToFile);
     auto numChannels = inputFile.getNumChannels();
     auto numSamples = inputFile.getNumSamplesPerChannel();
@@ -39,15 +35,15 @@ int main()
     outputFile.setBitDepth (inputFile.getBitDepth());
     outputFile.setSampleRate (inputFile.getSampleRate());
 
-    antiAlias.setCutoff(0.05);
+    ioFilter.init(sr);
 
-    for(auto& c : inputFile.samples)
+    for(auto& c : inputFile.samples) 
     {
-        antiAlias.process(c);   
-    }
-  
+        ioFilter.process(c);
+    }   
+    
     outputFile.setAudioBuffer(inputFile.samples);
-    outputFile.save ("/home/kian/instruo/newLubadh/antiAlias/audio/output.wav");
+    outputFile.save ("/home/kian/instruo/newLubadh/ioFilter/audio/output.wav");
 
     return 0;
 }
